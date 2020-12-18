@@ -36,16 +36,18 @@ void adquisicion(){
 
 int sensado_vaso(){
   v=1;
-  int muxValue,a=-1;
+  int muxValue;
   for (byte i = 0; i < 15; i++)
    {
       SetMuxChannel(i);
       muxValue = digitalRead(S);
       delay(50);
-      if (muxValue == 0 && a==-1)a=v;
+      if (muxValue == 1){
+        v*=dis;
+        return;
+      }
       v++;
    }
-   v=a*dis;
    delay(1000);
 }
 
@@ -55,4 +57,3 @@ int SetMuxChannel(byte channel){
    digitalWrite(C, bitRead(channel, 2));
    digitalWrite(D, bitRead(channel, 3));
 }
- 
